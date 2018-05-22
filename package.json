@@ -1,0 +1,32 @@
+{
+  "name": "html-code-start",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ospec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/futurist/html-code-start.git"
+  },
+  "keywords": [
+    "skip-doctype",
+    "skip-comments",
+    "skip-html",
+    "find-start",
+    "check-quirks",
+    "check-begin",
+    "find-start"
+  ],
+  "author": "JamesYang",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/futurist/html-code-start/issues"
+  },
+  "homepage": "https://github.com/futurist/html-code-start#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "ospec": "^2.0.0"
+  }
+}
