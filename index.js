@@ -28,12 +28,15 @@ function parse(str) {
          break
       }
       case TYPE_COMMENT:{
-        if(c==='-' && str.indexOf('-->',i)>-1) {
+        console.log(c)
+        if(c==='-' && str.indexOf('-->',i)===i) {
           node.end = i+2
           ast.push(node)
           node={}
+          i+=3
+        } else {
+          i++
         }
-        i+=3
         break
       }
       case TYPE_NODE_DOCTYPE:
@@ -59,7 +62,7 @@ function parse(str) {
           node = {type: TYPE_WHITESPACE, start: i, end: i}
           i++
         } else if(c==='<'){
-          console.log(c, i)
+          console.log(c, i, str.indexOf('<!doctype',i), getTagName(i))
           if(str.indexOf('<!--',i)===i) {
             node = {type: TYPE_COMMENT, start: i, end: i}
             i+=4
@@ -88,27 +91,31 @@ function parse(str) {
     ast: ast
   }
 
-  function getTagName(i) {
-    var c, code, end = i, isTag=true
+  function getTagName(start) {
+    var char, code, end = start, tag=[], isTag=true
     for(;;) {
-      c = str[++end]
-      if(c==null) break
-      code = c.charCodeAt(0)
+      char = str[++end]
+      if(char==null || endTagChar.indexOf(char)>-1) break
+      code = char.charCodeAt(0)
       if(isTag && (code<97||code>122)) { //a=97, z=122
         isTag=false
       }
-      if(endTagChar.indexOf(c)>-1) break
+      tag.push(char)
     }
-    return [end-1, isTag]
+    return [end-1, tag.join(''), isTag]
   }
 }
 
 module.exports = parse
 
 var code=`
-
+<!-- oiasdjf-->
+<!doctype>
+<html title="as>df">
+<head>
 <script>window.abc=1234; void function(){var s=document.getElementsByTagName('script')[0]; s.parentNode.removeChild(s)}();</script>
 <script src=a.js></script>
 `
-console.log(parse(code), code.slice(2))
+var r = parse(code)
+console.log(r, code.slice(r.start))
 
