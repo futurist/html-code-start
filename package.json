@@ -25,8 +25,8 @@
     "url": "https://github.com/futurist/html-code-start/issues"
   },
   "homepage": "https://github.com/futurist/html-code-start#readme",
-  "dependencies": {},
   "devDependencies": {
+    "glob": "^7.1.2",
     "ospec": "^2.0.0"
   }
 }
