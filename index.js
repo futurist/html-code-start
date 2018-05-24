@@ -71,7 +71,7 @@ function parse (str) {
   }
   return {
     start: i,
-    lines: lines,
+    line: lines,
     quirks: quirks,
     ast: ast
   }
