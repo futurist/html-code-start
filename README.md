@@ -25,7 +25,7 @@ The result is
 
 ```
 { start: 68,
-  lines: 5,
+  lines: 6,
   quirks: false,
   ast:
    [ { type: 1, start: 0, end: 0 },

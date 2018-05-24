@@ -15,7 +15,7 @@ function parse (str) {
   var length = str.length
   var ast = [], node = {}
   var tagObj, tagName
-  var lines = 0
+  var lines = 1
   main_loop:
   for (;i < length;) {
     c = str[i]
