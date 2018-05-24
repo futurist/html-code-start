@@ -15,9 +15,11 @@ function parse (str) {
   var length = str.length
   var ast = [], node = {}
   var tagObj, tagName
+  var lines = 0
   main_loop:
   for (;i < length;) {
     c = str[i]
+    if(c=='\n') lines++
     if (node.type === TYPE_WHITESPACE) {
       if (white.indexOf(c) < 0) {
         node.end = i - 1
@@ -69,6 +71,7 @@ function parse (str) {
   }
   return {
     start: i,
+    lines: lines,
     quirks: quirks,
     ast: ast
   }
