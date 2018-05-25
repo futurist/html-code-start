@@ -1,12 +1,17 @@
 var o = require('ospec')
 var parse = require('../')
 
+function pick(obj, keys){
+  return (typeof keys==='string'?keys.split(','):keys).map(k=>obj[k])
+}
+
 o('should not throw', function(){
-  o(parse(`  asdf`).start).equals(2)
-  o(parse(`  <!--asdf-->asdf`).start).equals(13)
-  o(parse(`  <!--asdf--><html><head><body>asdf`).start).equals(25)
-  o(parse(`  <!--asdf--><head><body>asdf`).start).equals(19)
-  o(parse(`  <!doctype><head><!--asdf--><body>asdf`).start).equals(29)
+  var parse2 = code=>pick(parse(code), 'start,line,col,quirks')
+  o(parse2(`  asdf`)).deepEquals([2,1,2,true])
+  o(parse2(`  <!--asdf-->asdf`)).deepEquals([13,1,13,true])
+  o(parse2(`  <!--asdf--><html><head><body>asdf`)).deepEquals([25,1,25,true])
+  o(parse2(`  <!--asdf--><head><body>asdf`)).deepEquals([19,1,19,true])
+  o(parse2(`  <!doctype><head><!--asdf--><body>asdf`)).deepEquals([29,1,29,false])
 })
 o('should work', function(){
   var code = `
@@ -19,6 +24,7 @@ o('should work', function(){
 `
 o(parse(code)).deepEquals({ start: 68,
   line: 7,
+  col: 0,
   quirks: false,
   ast:
    [ { type: 1, start: 0, end: 0 },

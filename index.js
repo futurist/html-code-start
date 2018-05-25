@@ -16,10 +16,14 @@ function parse (str) {
   var ast = [], node = {}
   var tagObj, tagName
   var lines = 1
+  var cols = 0
+  var prev = 0
   main_loop:
   for (;i < length;) {
     c = str[i]
-    if(c=='\n') lines++
+    cols+=(i-prev)
+    prev = i
+    if(c==='\n') lines++, cols=0, prev++
     if (node.type === TYPE_WHITESPACE) {
       if (white.indexOf(c) < 0) {
         node.end = i - 1
@@ -72,6 +76,7 @@ function parse (str) {
   return {
     start: i,
     line: lines,
+    col: cols,
     quirks: quirks,
     ast: ast
   }

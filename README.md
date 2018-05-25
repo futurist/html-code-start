@@ -26,6 +26,7 @@ The result is
 ```
 { start: 68,
   line: 6,
+  col: 0,
   quirks: false,
   ast:
    [ { type: 1, start: 0, end: 0 },
@@ -41,5 +42,8 @@ The result is
      { type: 1, start: 67, end: 67 } ] }
 ```
 
-And the js code start point is `68`, which is just before `<script>var a=1;</script>` tag.
+And the js code start point is `68` (before `<` char of `<script>`), and **not quirks** mode.
+
+# Note
+The line number start from 1, but the column number start from 0, this is follow the Emacs convention.
 
